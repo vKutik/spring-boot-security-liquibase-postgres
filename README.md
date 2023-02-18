@@ -1,4 +1,5 @@
 # spring-boot-security-liquibase-postgres
 
-In this project I want realize liquibase and spring-security part and creacte basic logic login, register new User 
-and RESP API
+This project for improve skills Spring Security.
+Also learn Liquibase for database 
+and work with database PostgresSql witch deploy on Docker
