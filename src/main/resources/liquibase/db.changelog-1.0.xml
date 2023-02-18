@@ -5,7 +5,23 @@
 
   <changeSet id="1.0.0" author="kutik">
     <createTable tableName="users">
-      <column></column>
+
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+
+      <column name="username" type="VARCHAR(100)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+
+
+      <column name="password" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="status" type="VARCHAR(25)">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
@@ -16,24 +32,62 @@
         <constraints primaryKey="true" nullable="false"/>
       </column>
 
-      <column name="username" type="VARCHAR(100)" >
-        <constraints  unique="true" nullable="false"/>
-      </column>
-
-
-      <column name="password" type="VARCHAR(255)" >
+      <column name="name" type="VARCHAR(100)">
         <constraints nullable="false"/>
       </column>
 
-      <column name="status" type="VARCHAR(25)">
+      <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
         <constraints nullable="false"/>
       </column>
+
     </createTable>
   </changeSet>
 
   <changeSet id="1.0.2" author="kutik">
     <createTable tableName="user_roles">
-      <column></column>
+
+      <column
+        name="user_id"
+        type="BIGINT" >
+      </column>
+      <column
+        name="role_id"
+        type="BIGINT" >
+      </column>
     </createTable>
   </changeSet>
+
+  <changeSet id="1.0.3" author="kutik">
+    <addForeignKeyConstraint
+      baseTableName="user_roles"
+      baseColumnNames="user_id"
+      constraintName="fk_user_roles_user"
+      referencedTableName="users"
+      referencedColumnNames="id"
+      onDelete="CASCADE"
+      onUpdate="RESTRICT"
+    />
+  </changeSet>
+
+  <changeSet id="1.0.4" author="kutik">
+    <addForeignKeyConstraint
+      baseTableName="user_roles"
+      baseColumnNames="role_id"
+      constraintName="fk_user_roles_roles"
+      referencedTableName="roles"
+      referencedColumnNames="id"
+      onDelete="CASCADE"
+      onUpdate="RESTRICT"
+    />
+  </changeSet>
+
+  <changeSet id="1.0.5" author="kutik">
+    <insert tableName="roles">
+      <column name = "name" value="ROLE_USER" />
+    </insert>
+    <insert tableName="roles">
+      <column name = "name" value="ROLE_ADMIN " />
+    </insert>
+  </changeSet>
+
 </databaseChangeLog>
